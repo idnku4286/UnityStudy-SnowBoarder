@@ -5,13 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
+    [SerializeField] float waitTime = 2f;
+    [SerializeField] ParticleSystem finishEffect;
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag=="Player")
         {
-            Debug.Log("Finish Line Reached!");
-            SceneManager.LoadScene(0);
+            finishEffect.Play();
+            Invoke("ReloadScene", waitTime);
         }
+    }
+    void ReloadScene() 
+    {
+        SceneManager.LoadScene(0);
     }
 }
